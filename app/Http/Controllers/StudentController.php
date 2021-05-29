@@ -25,7 +25,8 @@ class StudentController extends Controller
             ->where('nama_guru', 'like', 'Budi Setiawan')->get();
         return view(
             'home0089',
-            [   'student' => $student,
+            [
+                'student' => $student,
                 'studentw' => $studentw,
                 'studentselect' => $studentselect,
                 'studentjoin' => $studentjoin,
