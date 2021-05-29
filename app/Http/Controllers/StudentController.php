@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\DataGuru;
+use App\Models\DataSiswa;
 
 class StudentController extends Controller
 {
@@ -16,7 +18,20 @@ class StudentController extends Controller
     public function index()
     {
         $student = Student::all();
-        return view('home0089', ['student' => $student]);
+        $studentselect = DataGuru::select('nama_guru', 'nip')->get();
+        $studentw = DataGuru::where('nama_guru', '=', 'Budi Setiawan')->get();
+        $studentjoin = DataSiswa::join('data_guru', 'wali_kelas', '=', 'nama_guru')->get();
+        $studentjoinlike = DataSiswa::join('data_guru', 'wali_kelas', '=', 'nama_guru')
+            ->where('nama_guru', 'like', 'Budi Setiawan')->get();
+        return view(
+            'home0089',
+            [   'student' => $student,
+                'studentw' => $studentw,
+                'studentselect' => $studentselect,
+                'studentjoin' => $studentjoin,
+                'studentjoinlike' => $studentjoinlike
+            ]
+        );
     }
 
     /**
